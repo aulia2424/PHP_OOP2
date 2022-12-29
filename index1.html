@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 style="text-align: center">Javascript OOP</h1>
+    <script>
+      /*
+          - OOP adalah singkatan dari Object Oriented Programming. OOP merupakan metode pemrograman yang lebih berorientasi pada objek. maksudnya pemrograman yang lebih terpusat pada objek. sehingga akan lebih sangat memudahkan kita di dalam membuat aplikasi.
+
+          - Apa Itu Object ?
+          Object adalah data yang berisi field/  properties /attributes dan method / function / behvior.
+
+          - Apa itu Class
+          - Class adalah blueprint,prototyp atau cetakan untuk membuat Object.
+          - Class berisikan deklarasi semua properties dan function yang dimiliki oleh object.
+          - Setiap Object selalu dibuat dari Class.
+          - Dan sebuah Class bisa membuat Object tanpa batas.
+         */
+
+      /* Membuat Constructor Function
+          - Sebelum ECMAScript versi 6, pembuatan class, biasanya menggunakan function, Hal ini dikarenakan sebenarnya JS bukanlah bahasa pemrograman yang fokus ke OOP.
+          - Untuk membuat class di Js lama, kita bisa membuat function.
+          - Function ini kita sebut dengan Constructor Function.
+          - Menggunakan jenis karakter Uppercase contoh function NamaSaya.
+         */
+
+      /* Membuat Object dari Constructor Function
+          - Setelah kita membuat class, jika kita ingin membuat object dari class tersebut, kita bisa menggunakan kata kunci new, lalu diikuti dengan nama constructor functionnya.
+         */
+      /* function Person() {
+          // ini adalah class
+          }
+          const aul = new Person(); // ini adalah object
+          const lia = new Person();
+         */
+
+      /* Property di Constructor Function
+          - Setelah kita membuat object, kita bisa dengan mudah menambahkan property ke dalam object tersebut hanya dengan menggunakan nama variablenya, diikuti dengan tanda titik dan nama property.
+          - Namun jika seperti itu, alhasil constructor function yang sudah kita buat tidak terlalu berguna, karena propertynya hanya ada di object yang kita tambahkan property.
+          - Untuk menambahkan property di dalam semua object yang dibuat dari constructor function, kita bisa menggunakan kata kunci this lalu diikuti dengan nama propertynya.
+          - CONTOH :
+          function Person(){
+              this.firtsName = ""   <= ini adalah property
+              this.lastName = ""
+          }
+          const aul = new Person();
+          const lia = new Person();
+         */
+
+      /* Method di Constructor Function
+          - Sama seperti tipe data object biasanya, kita juga bisa menambahkan method di dalam constructor function.
+          - JIka kita tambahkan method di constructor function, secraa otomatis objact yang kita buat akan memiliki method tersebut.
+         */
+      /* CONTOH :
+          document.writeln("-Method di Constructor Function-" + "<br>");
+          function Person() {
+          this.firstName = "Aulia";
+          this.lastName = "Brielliant";
+          this.sayHello = function (name) {
+          console.info(`Hello ${name}, my name is ${this.firstName}`);
+          };
+          }
+         */
+
+      // Parameter di Constructor Function
+      document.writeln("-Parameter di Constructor Function-" + "<br>");
+      function Person(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sayHello = function (name) {
+          document.writeln(`Hello ${name}, my names is ${this.firstName}`);
+        };
+      }
+      const aul = new Person("Aulia", "Martha");
+      aul.sayHello("Aulia");
+
+      document.writeln("<br>");
+
+      const lia = new Person("Prillia", "imoets");
+      lia.sayHello("Prillia");
+
+      /* Constructor Inheritance
+          - Dalam constructor kita biasanya membuat property baik itu berisi value ataupun function.
+          - Di dalam constructor, kita bisa memanggil constructor lain, dengan begitu kita bisa mewarisi semua property yang dibuat di constructor lain tersebut.
+          - Untuk memanggil constructor lain, kita bisa menggunakan NamaConstructor.call(this,parameter)
+         */
+      document.writeln("<br>" + "<br>" + "-Constructor Inheritance-" + "<br>");
+
+      function Employee(firstName1) {
+        this.firstName1 = firstName1;
+        this.sayHello1 = function (name1) {
+          document.writeln(`Hello ${name1}, My name is ${this.firstName1}`);
+        };
+      }
+      function Manager(firstName1, lastName1) {
+        this.lastName1 = lastName1;
+        Employee.call(this, firstName1);
+      }
+      const pira = new Manager("Aulia", "Matha");
+      pira.sayHello1("Aulia", "Martha Brielliant");
+
+      /* Prototype
+        - JS sebelumnya dikenal dengan pemrograman berbasis prototype
+        - Memang agak sedikit membingungkan, dan tidak dipungkiri, banyak sekali yang bingung dengan konsep prototype di Js.
+        - Pada Chapter ini, kita akan bahas tentang konsep prototype.
+       */
+
+      /* Prototype Inheritance
+        - Saat kita membuat object constructor function, object tersebut disebut instance, semua property (baik itu value atau method), akan berada di dalam instance objectnya.
+        - Setiap kita membuat sebuah constructor function, maka secara otomatis akan dibuatkan prototypenya misal, ketika kita membuat constructor function Person, maka akan ada Penson.prototype.
+        - Saat kita membuat sebuah object instance secara otomatis object tersebut adalah turunan dari Constructor.prototypenya.
+        - Untuk mengakses prototype memilih sebuah instance, kita bisa menggunakan _proto_
+       */
+      document.writeln("<br>" + "<br>" + "-Prototype Inheritance-" + "<br>");
+      document.writeln("-Object Instance-" + "<br>");
+      function Person1(firstName2, lastName2) {
+        this.firstName2 = firstName2;
+        this.lastName2 = lastName2;
+        this.sayHello2 = function (name2) {
+          document.writeln(`Hello ${name2}, my names is ${this.firstName2}`);
+        };
+      }
+      const awol = new Person1("Aulia Martha", "Briellint");
+      const budi = new Person1("Budi Nugraha", "Putro");
+      awol.sayHello2("Aul");
+      document.writeln("<br>");
+      budi.sayHello2("Budi");
+
+      /* Menambah Property ke Prototype
+        - Property mirip object, dimana kita bisa menambah property baik itu value ataupun method, method adalah function di dalam object.
+        - Saat kita menambah sebuah property ke Prototype, secara otomatis, semua object instance yang turunan dari prototype tersebut akan memiliki proprty tersebut.
+       */
+      document.writeln("<br>" + "<br>" + "-Menambah Property ke Prototype-" + "<br>");
+      function Person2(firstName3, lastName3) {
+        this.firstName3 = firstName3;
+        this.lastName3 = lastName3;
+        this.sayHello3 = function (name3) {
+          document.writeln(`Hello ${name3}, my names is ${this.firstName3}`);
+        };
+      }
+
+      Person2.prototype.sayBye = function () {
+        document.writeln("Good Bye");
+      };
+
+      Person2.prototype.run = function () {
+        document.writeln(`${this.firstName3} is running`);
+      };
+
+      const awol1 = new Person2("Aulia Martha", "Briellint");
+      const budi1 = new Person2("Budi Nugraha", "Putro");
+      awol1.sayHello3("Aul");
+      document.writeln("<br>");
+      budi1.sayHello3("Budi");
+      document.writeln("<br>");
+      awol1.sayBye();
+      awol1.run();
+
+      /* Kata Kunci Class
+        - Sejak EcmaScript versi 6, diperkenalkan kata kunci baru yaitu class, ini merupakan kata kunci yang digunakan untuk membuat class di Js.
+        - Dengan kata kunci class, kita tdak perlu lagi menggunakan constructor function untuk membuat class.
+       */
+      document.writeln("<br>" + "<br>" + "-Kata Kunci Class-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Person3");
+      class Person3 {}
+      Person3.prototype.sayHello4 = function () {};
+      const awol2 = new Person3();
+      console.info(awol2);
+
+      /* Constructor Di Class
+        - Karena bentuk constructor function mirip dengan function, jadi bisa menambah parameter pada constructor function, lantas dengan class?
+        - Di class juga kita bisa menambah constructor, dimana dengan menggunakan constructor, kita juga bisa menambah parameter saat pertama kali membuat objectnya.
+        - Untuk membuat constructor di class, kita bisa menggunakan kata kunci constructor.
+       */
+      document.writeln("<br>" + "<br>" + "-Constructor Di Class-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Person4");
+      class Person4 {
+        constructor(name4) {}
+      }
+      const awol3 = new Person4("Aul");
+      console.info(awol3);
+
+      /* Property Di Class
+        - Sama seperti pada constructor function, dalam classpun kita bisa menambahkan property.
+        - Karena hasilnya adalah sebuah object, jadi menambahkan property di class bisa juga dilakukan di instance objectnya.
+       */
+      document.writeln("<br>" + "<br>" + "-Property Di Class-" + "<br>");
+      class Person5 {
+        constructor(name5) {
+          this.name5 = name5;
+        }
+      }
+      const awol4 = new Person5("Aulia");
+      document.writeln(awol4.name5);
+
+      /* Method Di Class
+        - Membuat method di class sebenarnya bisa dilakukan dengan cara seperti menambahkan method di constructor function.
+        - Namun, hal tersebut sebenarnya menambahkan method ke dalam instace object.
+        - Khusus untuk method sebaiknya kita menambahkan ke prototype, bukan ke instance object.
+        - Untungnya di class, ada cara mudah menambahkan method dan secara otmatis ditambahkan ke prototype.
+       */
+      document.writeln("<br>" + "<br>" + "-Method Di Class-" + "<br>");
+      class Person6 {
+        constructor(name6) {
+          this.name6 = name6;
+        }
+        sayHello5(name6) {
+          document.writeln(`Hi ${name6}, my name is ${this.name6}`);
+        }
+      }
+      const awol5 = new Person6("Aulia Martha Brielliant");
+      document.writeln(awol5.name6);
+      document.writeln("<br>");
+      awol5.sayHello5("Aulia Ratu Pantai Selatan");
+
+      /* Class Inheritance
+        - Prototype mendukung pewarisan, walaupun agak sedikit tricky cara pembuatannya.
+        - Untungnya itu diperbaiki di EcmaScript6 dengan fitur classnya.
+        - Sebuah class bisa melakukan pewarisan dari class lainnya dengan menggunakan kata kunci extends.
+        - Di Js, Class inheritance sama seperti inheritance, hanya bisa satu parent class.
+       */
+      document.writeln("<br>" + "<br>" + "-Class Inheritance-" + "<br>");
+      class Employee1 {
+        sayHalo(name7) {
+          document.writeln(`Hai nama saya ${name7}, saya adalah ${this.name7}`);
+        }
+      }
+      class Manager1 extends Employee1 {
+        sayHalo(name7) {
+          document.writeln(`Hai nama saya ${name7}, saya lahir di ${this.name7}`);
+        }
+      }
+
+      const awol6 = new Employee1();
+      awol6.name7 = "Pelaut"; // ini untuk ${this.name7} jadi outputnya saya adalah pelaut
+      awol6.sayHalo("Aulia"); // ini untuk name7 yg ada di method jadi outputnya Hai Aulia
+
+      document.writeln("<br>");
+
+      const budi2 = new Manager1();
+      budi2.name7 = "Jogja";
+      budi2.sayHalo("Budi");
+
+      /* Super Constructor
+        - Class inheritance seperti Prototype Inheritance.
+        - Bagaimana dengan Constructor Inheritance? Sebenarnya Constructor Inheritance hanyalah melakukan eksekusi constructor lain dengan tujuan agar property di constructor lain bisa ditambahkan ke instance object ini.
+        - Dalam kasus ini, jika kita ingin mencapai hasil yang sama, kita bisa menggunakan kata kunci super di dalam constructor.
+        - Kata kunci super digunakan untuk memanggil constructor super class.
+        - Jika di child clas kita membuat constructor, maka kita wajib memanggil parent constructor, walaupun di parent tidak ada constructor.
+       */
+      document.writeln("<br>" + "<br>" + "-Super Constructor-" + "<br>");
+      class Employee2 {
+        constructor(name8) {
+          this.name8 = name8;
+        }
+        sayHalo2(name8) {
+          document.writeln(`Haii ${name8}, selamat datang di ${this.name8} `);
+        }
+      }
+      class Manager2 extends Employee2 {
+        sayHalo2(name8) {
+          document.writeln(`Hai nama saya ${name8}, saya adalah anak dari ${this.name8}`);
+        }
+      }
+
+      const awol7 = new Employee2();
+      awol7.name8 = "Disney";
+      awol7.sayHalo2("Aulia");
+
+      document.writeln("<br>");
+
+      const budi3 = new Manager2();
+      budi3.name8 = "Bill Gates";
+      budi3.sayHalo2("Budi");
+
+      // Supper Constructor 2
+      /* Contoh :
+       document.writeln("<br>" + "<br>" + "-Super Constructor 2-" + "<br>");
+       class Manager3 extends Employee3 {
+         constructor(firstName, lastName) {
+           super(firstName);
+           this.lastName = lastName;
+         }
+         sayHello(name) {
+           document.writeln(`Hi ${name}, my name is ${this.firstName}`);
+         }
+       }
+       */
+
+      /* Super Method
+        - Selain digunakan untuk memanggil constructor milih parent class, kata kunci super juga bisa digunakan untuk mengakses method parent class.
+        - Caranya bisa menggunakan super titik nama functionnya.
+        - Dengan kata lain, super sebenarnya adalah reference ke parent prototype, mirip seperti _proto_
+       */
+      document.writeln("<br>" + "<br>" + "-Super Method-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Paint Shape & Paint Circle");
+      class Shape {
+        paint() {
+          console.info("Paint Shape");
+        }
+      }
+      class Circle extends Shape {
+        paint() {
+          super.paint(); // fungsi super untuk memanggil constructor shape jadi kalo ga pake super maka yg keluar cuma yg paling bawah karena yg kepanggil cuma satu maka dari itu kita menggunakan super.
+          console.info("Paint Circle");
+        }
+      }
+      const circle = new Circle();
+      circle.paint();
+
+      /* Setter dan Getter di Class
+        - Class juga Mendukung pembuatan getter dan setter.
+        - Perlu diingat, getter dan setter ini akan berada di prototype, bukan di instance object
+       */
+      document.writeln("<br>" + "<br>" + "-Setter dan Getter di Class-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Person7 & Aulia Martha");
+      class Person7 {
+        constructor(firstName4, lastName4) {
+          this.firstName4 = firstName4;
+          this.lastName4 = lastName4;
+        }
+        get fullName() {
+          return `${this.firstName4} ${this.lastName4}`;
+        }
+        set fullName(value) {
+          const result = value.split(" ");
+          this.firstName4 = result[0];
+          this.lastName4 = result[0];
+        }
+      }
+      const awol8 = new Person7("Aulia", "Martha");
+      console.info(awol8);
+      console.info(awol8.fullName);
+
+      /* Class Field
+        - Biasanya, saat kita ingin menambahkan field (property yang berisi value), kita biasanya tambahkan di constructor.
+        - Namun, ada proposal di EcmaScript yang pembuatan public class field ditempatkan diluar constructor, selevel dengan penempatan method.
+        - Proposal ini masil belum final, namun beberapa browser sudah mendukungnya.
+       */
+      document.writeln("<br>" + "<br>" + "-Class Field-" + "<br>");
+
+      /* Public Class Field
+        - Dalam proposal tersebut juga disebutkan bahwa EcmaScript akan mendukung accsess modifier public dan private.
+        - Public artinya bisa diakses dari luar class, dan private hanya bisa bisa diakses dari dalam class saja.
+        - Private class field akan kita bahas di chapter selanjutnya.
+        - Untuk membuat public class field, kita bisa langsung buat nama field dengan valuenya selevel dengan method.
+        - Jika kita tidak memasukkan value ke dalam field tersebut, artinya field tersebut memiliki value undefined.
+       */
+      document.writeln("-Public Class Field-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Customer beserta parameternya/fieldnya");
+      class Customer {
+        firstName5;
+        lastName5;
+        balance = 0;
+
+        constructor(firstName5, lastName5) {
+          this.firstName5 = firstName5;
+          this.lastName5 = lastName5;
+        }
+        sayHalo3() {}
+      }
+      const awol9 = new Customer();
+      console.info(awol9);
+
+      /* Private Class Field
+        - Secara default, saat kita menambahkan field, maka field tersebut bisa diakses dari manapun.
+        - Jika kita ingin membuat field yang bersifat private(hanya bisa di akses di dalam class), kita bisa menggunakan tanda # sebelum nama fieldnya.
+        - Ini deinamakan prvate class field, dan hanya bisa diakses dari dalam class saja.
+       */
+      document.writeln("<br>" + "<br>" + "-Private Class Field-" + "<br>");
+      document.writeln("Outputnya ada di console jadi nanti saat kita manggil functionnya ga bisa karena hanya bisa di akses di dalam classnya saja");
+      class Counter {
+        #counter = 0;
+
+        increment() {
+          this.#counter++;
+        }
+        decrement() {
+          this.#counter--;
+        }
+        get() {
+          return this.#counter;
+        }
+      }
+      const counter = new Counter();
+      counter.increment();
+      counter.increment();
+      counter.increment();
+      counter.increment();
+      counter.increment(); // ini memanggil lima kali jadi menaikkan 5 angka maka valuenya 5
+      console.info(counter.get());
+
+      /* Private Method
+        - Sama seperti field, terdapat proposal juga untuk menambah fitur private method di EcmaScript.
+        - Dengan demikian, accses modifier private juga bisa digunakan di method.
+        - Caranya sama, dengan menambahkan tanda #(kres) di awal method, maka secara otomatis method tersebut adalah private.
+        - Ingat fitur ini masih dalam tahapan, belum benar-benar menjadi standard EcmaScript, jadi munkin tidak semua browser mendukung fitur ini.
+       */
+      document.writeln("<br>" + "<br>" + "-Private Method-" + "<br>");
+      class Person8 {
+        say(name9) {
+          if (name9) {
+            this.#sayWithName(name9);
+          } else {
+            this.#sayWithoutName();
+          }
+        }
+        #sayWithoutName() {
+          document.writeln(`Heloo`); //jadi kalo ga ada data di valuenya maka akan keluar Hello aja
+        }
+        #sayWithName(name9) {
+          document.writeln(`Heloo ${name9}`); // ini jika kita memasukkan data maka akan mengeluerkan output yg telah kita input tadi jadi Hello Aulia.
+        }
+      }
+      const aul1 = new Person8();
+      aul1.say("Aulia");
+
+      /* Operator Instance
+        - Kadang ada kasus kita ingin mengecek apakah sebuah object merupakan instance dari class tertentu atau bukan.
+        - Kita tidak bisa menggunakan operator typeof, karena object dari class operator, jika kita gunakan operator typeof, hasilnya adalah "object"
+        - Operator instanceof aan menghasilkan boolean, true jika benar object tersebut adalah instance objectnya, atau false jika bukan.
+       */
+      document.writeln("<br>" + "<br>" + "-Operator Instance-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya true,false,false,true");
+      class Employee4 {}
+      class Manager4 {}
+      const aul2 = new Employee4();
+      const budi4 = new Manager4();
+      console.info(aul2 instanceof Employee4); //true karena terasuk kedalam class Employee4.
+      console.info(aul2 instanceof Manager4); // false karena tidak ada di class Manager4.
+      console.info(budi4 instanceof Employee4);
+      console.info(budi4 instanceof Manager4);
+
+      /* Operator Instanceof Di Class Inheritance
+        - Operator Instanceof mendukung class Inheritance juga bisa digunakan untuk mengecek, apakah sebuah object adalah instace dari class tertentu, atau turunan dari class tertentu?
+       */
+      document.writeln("<br>" + "<br>" + "-Operator Instance-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya true,false,true,true");
+      class Employee5 {}
+      class Manager5 extends Employee5 {} // extends artinya pewarisan, jadi Manager5 merupakan pewarisan dari Employee5.
+
+      const aul3 = new Employee5();
+      const budi5 = new Manager5();
+
+      console.info(aul3 instanceof Employee5); //true karena terasuk kedalam class Employee4.
+      console.info(aul3 instanceof Manager5); // false karena tidak ada di class Manager4.
+
+      console.info(budi5 instanceof Employee5); // true karena Employee5 mewarisi Manager5 jadinya termasuk ke dalam class Employee5.
+
+      console.info(budi5 instanceof Manager5); // true karena termasuk ke dalam class Manager5
+
+      /* Kata Kunci Static
+        - Static adalah kata kunci yang bisa kita tambahkan sebelum field atau method, biasanya ketika kita membuat field atau method, maka secara otomatis akan menjadi property di instance object, dan method akan menjadi function di prototype.
+        - Jika kita tambah static, maka hal itu tidak terjadi.
+       */
+
+      /* Static Class Field
+        - Jika kita tambahkan static dalam class field, secara otomatis field tersebut bukan lagi milik instance object, melainkan milik class nya itu sendiri.
+        - Biasanya static digunakan jika kita ingin membuat utility field atau function.
+        - Cara mengakses static class field pun tidak lagi lewat object, melainkan lewat classnya.
+        - Static class field bisa diartikan sifatnya global, tidak peduli diakses dimana atau siapa yang mengakses, hasilnya akan sama.
+       */
+      document.writeln("<br>" + "<br>" + "-Operator Instance-" + "<br>");
+      class Configuration {
+        static name = "Belajar JavaScript OOP";
+        static version = 6.7;
+        static outhor = "Aulia Martha Brielliant";
+      } // static fungsinya agar jika kita functionnya tidakbisa diubah jadi kalo kita bikin object terus kita ubah functionnya maka static menolak jadi ketika kita memanggil property yg ada di class maka hasilnya undefined.
+      // Tapi kita bisa memanggil property dan mengeluarkan valuenya dengan menggunkan Function di class nya bukan di objectnya.
+
+      /*const config = new Configuration();
+         console.info(config) tidak ngaruh.*/
+
+      document.writeln(Configuration.name);
+      document.writeln("<br>");
+      document.writeln(Configuration.version);
+      document.writeln("<br>");
+      document.writeln(Configuration.outhor);
+
+      /* Static Method
+        - Kata kunci static tidak hanya bisa diambahkan di field, tapi juga di method.
+        - Jika kita tambahkan di method, artinya method tersebut jadi milik classnya, bukan prototypr.
+        - Untu mengakses method tersebut, kita bisa lakukan seperti mengakses static class field.
+       */
+      document.writeln("<br>" + "<br>" + "-Static Method-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya 6");
+      class MathUtil {
+        static sum(...numbers) {
+          let total = 0;
+          for (const number of numbers) {
+            total += number;
+          }
+          return total;
+        }
+      }
+      const result = MathUtil.sum(1, 1, 1, 1, 1, 1);
+      console.info(result);
+
+      /* Error
+        - Saat membuat aplikasi, sudah tentu kita tidak akan terhindar dari yang namanya error.
+        - Di Js, Error merupakan sesuatu yang sudah standar.
+        - Banyak sekali class error di Js, nmaun semua class error di JS selalu berujung di class Error yang terdapat di Js contohnya SyntaxError, TypeError,EvalError, dan lain lain.
+       */
+
+      /*  Throw Error
+        - Saat kita membuat instance object dari class error, tidak lantas otomatis terjadi error.
+        - Kita perlu memberi tahu program kita, bahwa kita akan mengintrigger sebuah error terjadi, atau istilahnya melempar Error (Throw Error).
+        - Untuk melempar error, kita bisa gunakan kata kunci throw diikuti dengan instace object errornya.
+        - Jika terjadi error, maka otomatis kode program kita akan terhenti, dan kita bisa melihar detail errornya di console di aplikasi browser kita.
+       */
+      /*document.writeln("<br>" + "<br>" + "-Throw Error-" + "<br>");
+       document.writeln("Outputnya ada di console valuenya Error Total Parameter Harus Lebih Dari 0");
+       class MathUtil1 {
+         static sum1(...numbers1) {
+           if (numbers1.length === 0) {
+             throw new Error("Total Parameter Harus Lebih Dari 0"); // jika di sum tidak dimasukkan para meter maka valuenya Total Parameter Harus Lebih Dari 0.
+           }
+           let result1 = 0;
+           for (const number1 of numbers1) {
+             result1 += number1;
+           }
+           return result1;
+         }
+       }
+
+       console.info(MathUtil1.sum1());
+       console.info("Aul"); // karena sumnya ga ada datanya jadi outputnya keluar error dan valuenya Total Parameter Harus Lebih Dari 0.
+
+       const result1 = MathUtil1.sum1(1, 1, 1, 1, 1, 1, 1, 1); // hasilnya 8 tapi karena di atas error jadi function di bawahnya ga di kerjain.
+       console.info(result1);
+       */
+
+      /* Error Handling
+        - Saat terjadi Error di kode program JS, kadang kita tidak ingin program kita berhenti.
+        - Di Js, kita bisa menangkap jika terjadi error.
+        - kita bisa menggunakan try castch statement untuk menangkap error.
+        - Pada blok try, kita akan mencoba mengakses kode program yang bisa menyebabkan error, dan jika terjadi error, blok try akan berhenti dan otomatis masuk ke block catch.
+        - Jika tidak terjadi error, block catch tidak akan di eksekusi.
+       */
+      document.writeln("<br>" + "<br>" + "-Error Handling-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Terjadi Error & Kode Program Tidak Akan Berhenti");
+      try {
+        //untuk menangkap error
+        console.info(MathUtil2.sum2());
+        console.info("Kode Blok Try Akan Berhenti"); // kan terjadi error di sini nah Js akan meloncat jadi ke catch dan di catch akan melanjutkan kode program selanjutnya.
+      } catch (error) {
+        // block catch tidak akan di eksekusi
+        console.error(`Terjadi Error : ${error.message}`); // terjadi error tetapi masih bisa menjalankan kode program
+      }
+      console.info("Kode Program Tidak Akan Berhenti"); // masih menjalankan program.
+
+      /* Kata Kunci Finally
+        - Kadang kia ingin melakukan sesuatu entah itu terjadi error ataupun tidak.
+        - Dalam try catch, kita bisa menambahkan blok finally.
+        - Blok finally ini akan selalu dieksekusi setelah try catch selesai, entah terjadi error atau tidak, blok finally akan selalu dieksekusi.
+       */
+      document.writeln("<br>" + "<br>" + "-Kata Kunci Finally-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Kode Blok Try Akan Berhenti, Terjadi Error & Kode Program Tidak Akan Berhenti");
+      try {
+        console.info(MathUtil3.sum3());
+        console.info("Kode Blok Try Akan Berhenti");
+      } catch (error1) {
+        console.error(`Terjadi Error : ${error1.message}`);
+      } finally {
+        console.info("Kode Program Selesai");
+      } // dari awal sampai akhir akan di eksekusi biasanya digunakan untuk memutuskan koneksi database.
+
+      /* Membuat Class Error Manual
+        - Walaupun JS sudah memiliki standard class Error.
+        - Namum alangkah baiknya, kita membedakan tiap jenis error.
+        - Untuk membuat error sendiri secara manual sangatlah mudah, cukup membuat class turunan dari class error.
+        - Dan jangan lupa tambahkan parameter message, agar bisa dikirim ke parameter di constructor.
+       */
+      document.writeln("<br>" + "<br>" + "-Membuat Class Error Manual-" + "<br>");
+      document.writeln("-Class ValidationError-" + "<br>");
+      document.writeln("Outputnya ada di console valuenya Kode Blok Try Akan Berhenti, Terjadi Error & Kode Program Tidak Akan Berhenti");
+      /*class MathUtil4 {
+        static sum4(...numbers4) {
+          if (numbers4.length === 0) {
+            throw new ValidationError("Total Parameter Harus Lebih Dari 0", "numbers");
+          } // kan sebelumnya kita bikin class error nah ini kita langsung menggunakan ValidationError
+          let total = 0;
+          for (const number4 of numbers4) {
+            total += number4;
+          }
+          return total;
+        }
+      }
+      try {
+        console.info(MathUtil4.sum4());
+        console.info("Kode Blok Try Akan Berhenti");
+      } catch (error2) {
+        if (error2 instanceof ValidationError) {
+          console.error(`Terjadi error di field ${error2.field} dengan error : ${error2.message}`);
+        } else {
+          console.error(`Terjadi error : ${error2}`);
+        }
+      }
+      */
+
+      /* Iterable dan Iterator
+        - Salah satu fitur terbaru ES6 adalah iterable.
+        - Iterable adalah spesial object yang memiliki standarisasi.
+        - Dengan mengikuti standarisasi Iterable, secara otomatis kita bsa melakukan iterasi terdapat data tersebut dengan menggunakan perulangan for...of
+        - Contohnya yang sudah mengikuti standarisasi Iterable adalah string, Array, Object dll
+       */
+      // Kontrak Iterable (dalam TypeScript)
+      /* document.writeln("<br>" + "<br>" + "-Kontrak Iterable (dalam TyoeScript)-" + "<br>");
+       interface Iterable<T> {
+         [Symbol.iterator](): Iterator<T>;
+       }
+       */
+
+      // Kontrak Iterator (dalam TypeScript
+      /* document.writeln("<br>" + "<br>" + "-Kontrak Iterator (dalam TypeScript)-" + "<br>");
+       interface Iterator<T, TReturn = any, TNext = undefined> {
+        next(...args: [] | [TNext]): IteratorResult<T, TReturn>;
+        return?(value?: TReturn): IteratorResult<T, TReturn>;
+        throw?(e?: any): IteratorResult<T, TReturn;
+      }
+       */
+
+      // Kontrak : IteratorResult (dalam TypeScript)
+      /* document.writeln("<br>" + "<br>" + "-Kontrak IteratorResult (dalam TypeScript)-" + "<br>");
+       interface IteratorYieldResult<TYield> {
+        done?: false;
+        value: TYield;
+      }
+      interface IteratorReturnResult<TReturn> {
+        done: true;
+        value: TReturn
+      }
+      type IteratorResult<T, TReturn = any IteratorYieldResult<T> | IteratorReturnResult<TReturn>;
+       */
+
+      /* Cara Kerja Iterable & Iterator
+        - Jika kita mengikuti kontrak Iterable, maka object yang kita buat akan bisa dilakukan iterasi menggunakan for...of
+        - Setiap kita melakukan perulangan, object Iterator akan dibuat.
+        - Hal ini menjadi aman jika kita melakukan iterasi berulang ulang, karena Iterator baru akan dibuat terus menerus
+       */
+      document.writeln("<br>" + "<br>" + "-Counter Iterator Result & Counter Iterable-" + "<br>");
+      document.writeln("Outputnya ada do console yang valuenya 1-20");
+      // Membuat Counter Iterator Result
+      class CounterIteratorResult {
+        constructor(value, done) {
+          this.done = done;
+          this.value = value;
+        }
+      }
+      class CounterIterator {
+        constructor(value, max) {
+          this.value = value;
+          this.max = max;
+        }
+        next() {
+          try {
+            if (this.value > this.max) {
+              return new CounterIteratorResult(this.value, true);
+            } else {
+              return new CounterIteratorResult(this.value, false);
+            }
+          } finally {
+            this.value++;
+          }
+        }
+      }
+
+      // Membuat counter Iterable
+      class Counter1 {
+        constructor(value, max) {
+          this.value = value;
+          this.max = max;
+        }
+        [Symbol.iterator]() {
+          // methodnya sesuai dengan kontrak iterable
+          return new CounterIterator(this.value, this.max);
+        }
+      }
+      const counter1 = new Counter1(1, 20); //valuennya 1 maxnya 20
+      for (const value of counter1) {
+        console.info(value);
+      }
+      /* Menggunakan perulangan for of maka nanti otomatis memanggil Symbol Iterator dan akan mengembalikan CounterIterator lalu nextnya akan di panggil terus menerus sampai batas max nya atau nilai truenya yaitu 20*/
+
+      /* Materi Selanjutnya
+       1. JS Standard Library
+       2. JS Modules
+       3. JS Document Object Model
+       4. JS Async
+       5. JS Web API 
+      */
+    </script>
+  </body>
+</html>
